@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        google()
+    }
+}
+
+include  'core', 'desktop', 'android'

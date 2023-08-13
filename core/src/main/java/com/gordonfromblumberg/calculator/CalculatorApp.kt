@@ -1,11 +1,11 @@
 package com.gordonfromblumberg.calculator
 
-import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
 
-class Calculator : ApplicationAdapter() {
+class CalculatorApp : Game() {
     var batch: SpriteBatch? = null
     var img: Texture? = null
 

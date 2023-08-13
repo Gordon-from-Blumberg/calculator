@@ -51,7 +51,11 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     }
 }
 

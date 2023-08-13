@@ -10,6 +10,6 @@ object DesktopLauncher {
         val config = Lwjgl3ApplicationConfiguration()
         config.setForegroundFPS(60)
         config.setTitle("Calculator")
-        Lwjgl3Application(Calculator(), config)
+        Lwjgl3Application(CalculatorApp(), config)
     }
 }

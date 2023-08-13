@@ -10,6 +10,7 @@ object DesktopLauncher {
         val config = Lwjgl3ApplicationConfiguration()
         config.setForegroundFPS(60)
         config.setTitle("Calculator")
+        config.setWindowedMode(480, 800)
         Lwjgl3Application(CalculatorApp(), config)
     }
 }

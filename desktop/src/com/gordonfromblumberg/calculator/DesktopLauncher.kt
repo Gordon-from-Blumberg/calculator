@@ -6,11 +6,19 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 object DesktopLauncher {
     @JvmStatic
-    fun main(arg: Array<String>) {
+    fun main(args: Array<String>) {
         val config = Lwjgl3ApplicationConfiguration()
         config.setForegroundFPS(60)
         config.setTitle("Calculator")
         config.setWindowedMode(480, 800)
+
+        for (arg in args) {
+            if ("debug" == arg) {
+                CalculatorApp.DEBUG = true
+                continue
+            }
+        }
+
         Lwjgl3Application(CalculatorApp(), config)
     }
 }

@@ -7,18 +7,19 @@ class Ingredient(var name: String = "",
                  var kcalsPer100: Float = 0f,
                  var mass: Float = 0f) {
 
-    fun proteins() = proteinsPer100 * mass
-    fun fats() = fatsPer100 * mass
-    fun chs() = chsPer100 * mass
-    fun kcals() = kcalsPer100 * mass
+    fun proteins() = proteinsPer100 * mass / 100
+    fun fats() = fatsPer100 * mass / 100
+    fun chs() = chsPer100 * mass / 100
+    fun kcals() = kcalsPer100 * mass / 100
 
     fun add(other: Ingredient) {
-        val newMass = mass + other.mass
+        val newMassG = mass + other.mass
+        val newMass = newMassG / 100
         proteinsPer100 = (proteins() + other.proteins()) / newMass
         fatsPer100 = (fats() + other.fats()) / newMass
         chsPer100 = (chs() + other.chs()) / newMass
         kcalsPer100 = (kcals() + other.kcals()) / newMass
-        mass = newMass
+        mass = newMassG
     }
 
     fun reset() {

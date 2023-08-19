@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
@@ -18,12 +19,13 @@ class CalculatorScreen : Screen {
     private val stage = Stage(viewport, batch)
 
     private val table: IngredientTable
-    private val button: TextButton
+    private val buttonTable: Table
 
     init {
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
         table = IngredientTable(skin)
-        button = TextButton("ADD", skin)
+        stage.addActor(table)
+        buttonTable = buildButtonTable(skin)
     }
 
     override fun show() {
@@ -31,8 +33,7 @@ class CalculatorScreen : Screen {
 
         configureViewport()
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
-        buildTable(skin)
-        buildButton(skin)
+        buildTable()
 
         stage.isDebugAll = CalculatorApp.DEBUG
     }
@@ -62,43 +63,33 @@ class CalculatorScreen : Screen {
         viewport.camera = camera
     }
 
-    private fun buildTable(skin: Skin) {
+    private fun buildTable() {
         TableScheme.validate()
 
-//        for (row in TableScheme.rows) {
-//            val fillY = row.fill
-//            for (cell in row.cells) {
-//                val widget: Actor = when (cell.id) {
-//                    "display" -> Label("0", skin)
-//                    else -> TextButton(cell.id, skin)
-//                }
-//                table.add(widget)
-//                        .colspan(cell.colSpan).fill(1f, fillY)
-//            }
-//            table.row()
-//        }
         table.addIngredient(Ingredient("Chicken", 15f, 12f, 3f, 200f, 800f))
         table.addIngredient(Ingredient("Sugar", 0f, 1f, 60f, 20f, 20f))
         table.addIngredient(Ingredient("Oil", 0f, 80f, 10f, 500f, 50f))
-
-//        table.setFillParent(true)
-
-        stage.addActor(table)
     }
 
-    private fun buildButton(skin: Skin) {
+    private fun buildButtonTable(skin: Skin): Table {
+        val addButton = TextButton("ADD", skin)
+        val calculateButton = TextButton("CALCULATE", skin)
 
-        stage.addActor(button)
+        val buttonTable = Table(skin)
+        buttonTable.add(addButton).expandX().fillX()
+        buttonTable.add(calculateButton).expandX().fillX()
+
+        stage.addActor(buttonTable)
+
+        return buttonTable
     }
 
     private fun resizeUI() {
         table.setSize(viewport.worldWidth, viewport.worldHeight - Config.bottomPad)
         table.y = Config.bottomPad
-
-        button.width = viewport.worldWidth / 2
-        button.height = Config.bottomPad - 2 * Config.edgePad
-        button.x = (viewport.worldWidth - button.width) / 2
-        button.y = Config.edgePad
+        buttonTable.setSize(viewport.worldWidth - 2 * Config.edgePad,
+                Config.bottomPad - 2 * Config.edgePad)
+        buttonTable.setPosition(Config.edgePad, Config.edgePad)
     }
 
     override fun pause() {

@@ -1,5 +1,7 @@
 package com.gordonfromblumberg.calculator.model
 
+import kotlin.math.roundToInt
+
 class Ingredient(var name: String = "",
                  var proteinsPer100: Float = 0f,
                  var fatsPer100: Float = 0f,
@@ -11,6 +13,11 @@ class Ingredient(var name: String = "",
     fun fats() = fatsPer100 * mass / 100
     fun chs() = chsPer100 * mass / 100
     fun kcals() = kcalsPer100 * mass / 100
+
+    fun proteinsPer100Rounded() = round(proteinsPer100).toString()
+    fun fatsPer100Rounded() = round(fatsPer100).toString()
+    fun chsPer100Rounded() = round(chsPer100).toString()
+    fun kcalsPer100Rounded() = round(kcalsPer100).toString()
 
     fun add(other: Ingredient) {
         val newMassG = mass + other.mass
@@ -28,5 +35,10 @@ class Ingredient(var name: String = "",
         chsPer100 = 0f
         kcalsPer100 = 0f
         mass = 0f
+    }
+
+    private fun round(v: Float): Float {
+        val value = v * 10
+        return value.roundToInt().toFloat() / 10
     }
 }

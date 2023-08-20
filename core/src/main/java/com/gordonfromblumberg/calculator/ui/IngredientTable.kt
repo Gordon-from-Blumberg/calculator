@@ -4,12 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.gordonfromblumberg.calculator.Config
+import com.gordonfromblumberg.calculator.Texts
 import com.gordonfromblumberg.calculator.model.Ingredient
-import kotlin.math.roundToInt
 
 class IngredientTable(skin: Skin) : Table(skin) {
     private val ingredients = ArrayList<Ingredient>()
-    private val total = Ingredient("Total")
+    val total = Ingredient(Texts.total)
 
     init {
         top().pad(Config.edgePad)
@@ -19,7 +19,10 @@ class IngredientTable(skin: Skin) : Table(skin) {
 
     fun addIngredient(ingredient: Ingredient) {
         ingredients.add(ingredient)
+        rebuild()
+    }
 
+    fun rebuild() {
         clearChildren()
         total.reset()
 
@@ -36,26 +39,21 @@ class IngredientTable(skin: Skin) : Table(skin) {
 
     private fun buildHeader() {
         row().top()
-        add("Name").expandX()
-        add("B/100g").uniform()
-        add("J/100g").uniform()
-        add("U/100g").uniform()
-        add("Kcal").uniform()
-        add("Mass,g").uniform()
+        add(Texts.nameCol).expandX()
+        add(Texts.proteinsCol)
+        add(Texts.fatsCol)
+        add(Texts.carbohydratesCol)
+        add(Texts.kcalCol)
+        add(Texts.massCol)
     }
 
     private fun addIngredientRow(ingredient: Ingredient) {
         row()
         add(ingredient.name)
-        add(ingredient.proteinsPer100.round().toString())
-        add(ingredient.fatsPer100.round().toString())
-        add(ingredient.chsPer100.round().toString())
-        add(ingredient.kcalsPer100.round().toString())
+        add(ingredient.proteinsPer100Rounded())
+        add(ingredient.fatsPer100Rounded())
+        add(ingredient.chsPer100Rounded())
+        add(ingredient.kcalsPer100Rounded())
         add(ingredient.mass.toString())
-    }
-
-    private fun Float.round(): Float {
-        val value = this * 10
-        return value.roundToInt().toFloat() / 10
     }
 }

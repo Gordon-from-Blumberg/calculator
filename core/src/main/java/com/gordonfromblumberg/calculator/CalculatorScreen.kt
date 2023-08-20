@@ -5,13 +5,17 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.gordonfromblumberg.calculator.model.Ingredient
+import com.gordonfromblumberg.calculator.ui.EditIngredientTable
 import com.gordonfromblumberg.calculator.ui.IngredientTable
+import com.gordonfromblumberg.calculator.ui.RunnableDialog
+import com.gordonfromblumberg.calculator.ui.UIFactory
 
 class CalculatorScreen : Screen {
     private val batch = SpriteBatch()
@@ -72,8 +76,8 @@ class CalculatorScreen : Screen {
     }
 
     private fun buildButtonTable(skin: Skin): Table {
-        val addButton = TextButton("ADD", skin)
-        val calculateButton = TextButton("CALCULATE", skin)
+        val addButton = UIFactory.textButton(skin, Texts.addButton, this::createAndShowAddDialog)
+        val calculateButton = TextButton(Texts.calculateButton, skin)
 
         val buttonTable = Table(skin)
         buttonTable.add(addButton).expandX().fillX()
@@ -90,6 +94,15 @@ class CalculatorScreen : Screen {
         buttonTable.setSize(viewport.worldWidth - 2 * Config.edgePad,
                 Config.bottomPad - 2 * Config.edgePad)
         buttonTable.setPosition(Config.edgePad, Config.edgePad)
+    }
+
+    private fun createAndShowAddDialog() {
+        val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
+        val dialog: Dialog = RunnableDialog(Texts.addIngredientTitle, skin)
+        val ingredient = Ingredient()
+        dialog.contentTable.add(EditIngredientTable(skin, ingredient))
+        dialog.button(Texts.addButton, Runnable { table.addIngredient(ingredient) })
+        dialog.show(stage)
     }
 
     override fun pause() {

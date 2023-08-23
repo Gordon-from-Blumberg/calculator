@@ -29,8 +29,8 @@ class IngredientTable(skin: Skin) : Table(skin) {
         buildHeader()
         for (ing in ingredients) {
             addIngredientRow(ing)
-            add(TextButton("E", skin))
-            add(TextButton("X", skin))
+            add(TextButton("E", skin)).minWidth(25f)
+            add(TextButton("X", skin)).minWidth(25f)
             total.add(ing)
         }
 

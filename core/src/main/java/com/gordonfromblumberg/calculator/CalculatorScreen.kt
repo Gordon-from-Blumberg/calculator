@@ -80,6 +80,7 @@ class CalculatorScreen : Screen {
         val calculateButton = TextButton(Texts.calculateButton, skin)
 
         val buttonTable = Table(skin)
+        buttonTable.defaults().space(Config.cellSpace)
         buttonTable.add(addButton).expandX().fillX()
         buttonTable.add(calculateButton).expandX().fillX()
 

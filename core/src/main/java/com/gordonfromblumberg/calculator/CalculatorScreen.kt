@@ -36,7 +36,6 @@ class CalculatorScreen : Screen {
         Gdx.input.inputProcessor = stage
 
         configureViewport()
-        val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
         buildTable()
 
         stage.isDebugAll = CalculatorApp.DEBUG

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -36,7 +37,7 @@ class CalculatorScreen : Screen {
         Gdx.input.inputProcessor = stage
 
         configureViewport()
-        buildTable()
+//        buildTable()
 
         stage.isDebugAll = CalculatorApp.DEBUG
     }
@@ -80,8 +81,8 @@ class CalculatorScreen : Screen {
 
         val buttonTable = Table(skin)
         buttonTable.defaults().space(Config.cellSpace)
-        buttonTable.add(addButton).expandX().fillX()
-        buttonTable.add(calculateButton).expandX().fillX()
+        buttonTable.add(addButton).expandX().fillX().height(Config.buttonHeight)
+        buttonTable.add(calculateButton).expandX().fillX().height(Config.buttonHeight)
 
         stage.addActor(buttonTable)
 
@@ -104,6 +105,7 @@ class CalculatorScreen : Screen {
         dialog.button(Texts.addButton, Runnable { table.addIngredient(ingredient) })
         dialog.button(Texts.cancelButton)
         dialog.show(stage)
+        dialog.addAction(Actions.moveBy(0f, (viewport.worldHeight - dialog.height) / 4, .3f))
     }
 
     private fun createAndShowCalculateDialog() {
@@ -112,6 +114,7 @@ class CalculatorScreen : Screen {
         dialog.contentTable.add(CalculateTable(skin, table.total))
         dialog.button(Texts.okButton)
         dialog.show(stage)
+        dialog.addAction(Actions.moveBy(0f, (viewport.worldHeight - dialog.height) / 4, .3f))
     }
 
     override fun pause() {

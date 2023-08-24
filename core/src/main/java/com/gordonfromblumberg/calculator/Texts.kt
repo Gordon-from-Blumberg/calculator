@@ -2,8 +2,10 @@ package com.gordonfromblumberg.calculator
 
 object Texts {
     const val addButton = "Добавить"
+    const val cancelButton = "Отмена"
     const val saveButton = "Сохранить"
     const val calculateButton = "Посчитать"
+    const val okButton = "Ок"
 
     const val nameCol = "Название"
     const val proteinsCol = "Б/100г"
@@ -18,4 +20,9 @@ object Texts {
     const val addIngredientTitle = "Добавить ингредиент"
     const val editIngredientTitle = "Редактировать ингредиент"
     const val calculateTitle = "Посчитать"
+
+    const val pfcPer100 = "Б / Ж / У /100г"
+    const val kcalPer100 = "Ккал/100г"
+    const val pfc = "Б / Ж / У"
+    const val kcal = "Ккал"
 }

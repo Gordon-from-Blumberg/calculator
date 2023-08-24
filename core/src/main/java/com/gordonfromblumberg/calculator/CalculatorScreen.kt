@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.gordonfromblumberg.calculator.model.Ingredient
+import com.gordonfromblumberg.calculator.ui.CalculateTable
 import com.gordonfromblumberg.calculator.ui.EditIngredientTable
 import com.gordonfromblumberg.calculator.ui.IngredientTable
 import com.gordonfromblumberg.calculator.ui.RunnableDialog
@@ -76,7 +76,7 @@ class CalculatorScreen : Screen {
 
     private fun buildButtonTable(skin: Skin): Table {
         val addButton = UIFactory.textButton(skin, Texts.addButton, this::createAndShowAddDialog)
-        val calculateButton = TextButton(Texts.calculateButton, skin)
+        val calculateButton = UIFactory.textButton(skin, Texts.calculateButton, this::createAndShowCalculateDialog)
 
         val buttonTable = Table(skin)
         buttonTable.defaults().space(Config.cellSpace)
@@ -102,6 +102,15 @@ class CalculatorScreen : Screen {
         val ingredient = Ingredient()
         dialog.contentTable.add(EditIngredientTable(skin, ingredient))
         dialog.button(Texts.addButton, Runnable { table.addIngredient(ingredient) })
+        dialog.button(Texts.cancelButton)
+        dialog.show(stage)
+    }
+
+    private fun createAndShowCalculateDialog() {
+        val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
+        val dialog: Dialog = RunnableDialog(Texts.calculateTitle, skin)
+        dialog.contentTable.add(CalculateTable(skin, table.total))
+        dialog.button(Texts.okButton)
         dialog.show(stage)
     }
 

@@ -9,15 +9,19 @@ class Ingredient(var name: String = "",
                  var kcalsPer100: Float = 0f,
                  var mass: Float = 0f) {
 
-    fun proteins() = proteinsPer100 * mass / 100
-    fun fats() = fatsPer100 * mass / 100
-    fun chs() = chsPer100 * mass / 100
-    fun kcals() = kcalsPer100 * mass / 100
+    fun proteins(m: Float = mass) = proteinsPer100 * m / 100
+    fun fats(m: Float = mass) = fatsPer100 * m / 100
+    fun chs(m: Float = mass) = chsPer100 * m / 100
+    fun kcals(m: Float = mass) = kcalsPer100 * m / 100
 
-    fun proteinsPer100Rounded() = round(proteinsPer100).toString()
-    fun fatsPer100Rounded() = round(fatsPer100).toString()
-    fun chsPer100Rounded() = round(chsPer100).toString()
-    fun kcalsPer100Rounded() = round(kcalsPer100).toString()
+    fun proteinsPer100Rounded() = round(proteinsPer100)
+    fun fatsPer100Rounded() = round(fatsPer100)
+    fun chsPer100Rounded() = round(chsPer100)
+    fun kcalsPer100Rounded() = round(kcalsPer100)
+
+    fun pfcPer100() = "${proteinsPer100Rounded()} / ${fatsPer100Rounded()} / ${chsPer100Rounded()}"
+    fun pfc(m: Float) = "${round(proteins(m))} / ${round(fats(m))} / ${round(chs(m))}"
+    fun kcalsStr(m: Float) = round(kcals(m))
 
     fun add(other: Ingredient) {
         val newMassG = mass + other.mass
@@ -37,8 +41,8 @@ class Ingredient(var name: String = "",
         mass = 0f
     }
 
-    private fun round(v: Float): Float {
+    private fun round(v: Float): String {
         val value = v * 10
-        return value.roundToInt().toFloat() / 10
+        return (value.roundToInt().toFloat() / 10).toString()
     }
 }

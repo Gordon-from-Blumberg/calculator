@@ -10,7 +10,7 @@ class RunnableDialog(title: String, skin: Skin) : Dialog(title, skin) {
         buttonTable.pad(Config.edgePad)
     }
 
-    override fun result(obj: Any) {
+    override fun result(obj: Any?) {
         if (obj is Runnable)
             obj.run()
     }

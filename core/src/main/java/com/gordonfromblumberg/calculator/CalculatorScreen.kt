@@ -5,8 +5,6 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.ScreenUtils
@@ -101,22 +99,20 @@ class CalculatorScreen : Screen {
 
     private fun createAndShowAddDialog() {
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
-        val dialog: Dialog = RunnableDialog(Texts.addIngredientTitle, skin)
+        val dialog = RunnableDialog(Texts.addIngredientTitle, skin)
         val ingredient = Ingredient()
         dialog.contentTable.add(EditIngredientTable(skin, ingredient))
         dialog.button(Texts.addButton, Runnable { table.addIngredient(ingredient) })
         dialog.button(Texts.cancelButton)
         dialog.show(stage)
-        dialog.addAction(Actions.moveBy(0f, (viewport.worldHeight - dialog.height) / 4, .3f))
     }
 
     private fun createAndShowCalculateDialog() {
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
-        val dialog: Dialog = RunnableDialog(Texts.calculateTitle, skin)
+        val dialog = RunnableDialog(Texts.calculateTitle, skin)
         dialog.contentTable.add(CalculateTable(skin, table.total))
         dialog.button(Texts.okButton)
         dialog.show(stage)
-        dialog.addAction(Actions.moveBy(0f, (viewport.worldHeight - dialog.height) / 4, .3f))
     }
 
     override fun pause() {

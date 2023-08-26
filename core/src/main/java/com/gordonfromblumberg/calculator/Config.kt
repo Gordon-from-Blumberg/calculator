@@ -8,7 +8,7 @@ object Config {
     const val minRatio = 1.6f
     const val maxRatio = 2.0f
 
-    val backgroundColor: Color = Color.valueOf("20A090FF")
+    val backgroundColor: Color = Color.valueOf("109080FF")
     const val edgePad = 10f
     const val bottomPad = 50f
     const val cellSpace = 5f

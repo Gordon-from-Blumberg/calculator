@@ -78,11 +78,13 @@ class CalculatorScreen : Screen {
     private fun buildButtonTable(skin: Skin): Table {
         val addButton = UIFactory.textButton(skin, Texts.addButton, this::createAndShowAddDialog)
         val calculateButton = UIFactory.textButton(skin, Texts.calculateButton, this::createAndShowCalculateDialog)
+        val clearButton = UIFactory.textButton(skin, Texts.clearButton, table::clearIngredients)
 
         val buttonTable = Table(skin)
         buttonTable.defaults().space(Config.cellSpace)
         buttonTable.add(addButton).expandX().fillX().height(Config.buttonHeight)
         buttonTable.add(calculateButton).expandX().fillX().height(Config.buttonHeight)
+        buttonTable.add(clearButton).expandX().fillX().height(Config.buttonHeight)
 
         stage.addActor(buttonTable)
 

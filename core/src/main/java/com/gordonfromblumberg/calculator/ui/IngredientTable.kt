@@ -33,6 +33,11 @@ class IngredientTable(skin: Skin) : Table(skin) {
         rebuild()
     }
 
+    fun clearIngredients() {
+        ingredients.clear()
+        rebuild()
+    }
+
     private fun rebuild() {
         clearChildren()
         total.reset()

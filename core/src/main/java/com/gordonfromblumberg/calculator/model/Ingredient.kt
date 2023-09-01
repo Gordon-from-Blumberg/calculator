@@ -26,10 +26,12 @@ class Ingredient(var name: String = "",
     fun add(other: Ingredient) {
         val newMassG = mass + other.mass
         val newMass = newMassG / 100
-        proteinsPer100 = (proteins() + other.proteins()) / newMass
-        fatsPer100 = (fats() + other.fats()) / newMass
-        chsPer100 = (chs() + other.chs()) / newMass
-        kcalsPer100 = (kcals() + other.kcals()) / newMass
+        if (newMass > 0) {
+            proteinsPer100 = (proteins() + other.proteins()) / newMass
+            fatsPer100 = (fats() + other.fats()) / newMass
+            chsPer100 = (chs() + other.chs()) / newMass
+            kcalsPer100 = (kcals() + other.kcals()) / newMass
+        }
         mass = newMassG
     }
 

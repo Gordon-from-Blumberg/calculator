@@ -1,5 +1,6 @@
 package com.gordonfromblumberg.calculator.ui
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog
@@ -21,5 +22,10 @@ class RunnableDialog(title: String, skin: Skin) : Dialog(title, skin) {
         super.show(stage)
         addAction(Actions.moveBy(0f, (stage!!.viewport.worldHeight - height) / 4, .3f))
         return this
+    }
+
+    override fun hide() {
+        super.hide()
+        Gdx.input.setOnscreenKeyboardVisible(false)
     }
 }

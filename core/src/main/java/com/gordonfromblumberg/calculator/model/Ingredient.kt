@@ -1,5 +1,7 @@
 package com.gordonfromblumberg.calculator.model
 
+import java.io.DataInputStream
+import java.io.DataOutputStream
 import kotlin.math.roundToInt
 
 class Ingredient(var name: String = "",
@@ -7,7 +9,7 @@ class Ingredient(var name: String = "",
                  var fatsPer100: Float = 0f,
                  var chsPer100: Float = 0f,
                  var kcalsPer100: Float = 0f,
-                 var mass: Float = 0f) {
+                 var mass: Float = 0f) : SaveLoadable {
 
     fun proteins(m: Float = mass) = proteinsPer100 * m / 100
     fun fats(m: Float = mass) = fatsPer100 * m / 100
@@ -41,6 +43,24 @@ class Ingredient(var name: String = "",
         chsPer100 = 0f
         kcalsPer100 = 0f
         mass = 0f
+    }
+
+    override fun save(out: DataOutputStream) {
+        out.writeChars(name)
+        out.writeFloat(proteinsPer100)
+        out.writeFloat(fatsPer100)
+        out.writeFloat(chsPer100)
+        out.writeFloat(kcalsPer100)
+        out.writeFloat(mass)
+    }
+
+    override fun load(input: DataInputStream) {
+        name = input.readUTF()
+        proteinsPer100 = input.readFloat()
+        fatsPer100 = input.readFloat()
+        chsPer100 = input.readFloat()
+        kcalsPer100 = input.readFloat()
+        mass = input.readFloat()
     }
 
     private fun round(v: Float): String {

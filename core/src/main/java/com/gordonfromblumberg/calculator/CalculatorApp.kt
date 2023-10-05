@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.gordonfromblumberg.calculator.store.IngredientStore
 
 
 class CalculatorApp : Game() {
@@ -30,6 +31,8 @@ class CalculatorApp : Game() {
         ASSETS.get("ui/uiskin.json", Skin::class.java)
                 .get("default-font", BitmapFont::class.java)
                 .region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+
+        IngredientStore.load()
 
         setScreen(CalculatorScreen())
     }

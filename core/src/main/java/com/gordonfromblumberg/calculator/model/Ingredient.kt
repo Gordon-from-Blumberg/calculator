@@ -46,7 +46,7 @@ class Ingredient(var name: String = "",
     }
 
     override fun save(out: DataOutputStream) {
-        out.writeChars(name)
+        out.writeUTF(name)
         out.writeFloat(proteinsPer100)
         out.writeFloat(fatsPer100)
         out.writeFloat(chsPer100)

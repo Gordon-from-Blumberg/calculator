@@ -14,19 +14,25 @@ object IngredientStore {
         INGREDIENTS.clear()
 
         val storeFile = Gdx.files.local(fileName)
-        val input = DataInputStream(storeFile.read())
-        var count = input.readInt()
-        while (count-- > 0) {
-            val ingredient = Ingredient()
-            ingredient.load(input)
-            INGREDIENTS.add(ingredient)
+        if (!storeFile.exists()) {
+            return
+        }
+
+        DataInputStream(storeFile.read()).use {
+            var count = it.readInt()
+            while (count-- > 0) {
+                val ingredient = Ingredient()
+                ingredient.load(it)
+                INGREDIENTS.add(ingredient)
+            }
         }
     }
 
     fun save() {
         val storeFile = Gdx.files.local(fileName)
-        val output = DataOutputStream(storeFile.write(false))
-        output.writeInt(INGREDIENTS.size)
-        INGREDIENTS.forEach { it.save(output) }
+        DataOutputStream(storeFile.write(false)).use {
+            it.writeInt(INGREDIENTS.size)
+            INGREDIENTS.forEach { i -> i.save(it) }
+        }
     }
 }

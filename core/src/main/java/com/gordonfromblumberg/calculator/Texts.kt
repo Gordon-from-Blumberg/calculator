@@ -8,6 +8,7 @@ object Texts {
     const val saveButton = "Сохранить"
     const val okButton = "Ок"
 
+    const val dish = "Блюдо"
     const val nameCol = "Название"
     const val proteinsCol = "Б/100г"
     const val fatsCol = "Ж/100г"

@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextField
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.gordonfromblumberg.calculator.model.Ingredient
+import com.gordonfromblumberg.calculator.store.IngredientStore
 import com.gordonfromblumberg.calculator.ui.CalculateTable
 import com.gordonfromblumberg.calculator.ui.EditIngredientTable
 import com.gordonfromblumberg.calculator.ui.IngredientTable
@@ -21,11 +24,15 @@ class CalculatorScreen : Screen {
     private val viewport = ExtendViewport(0f, 0f)
     private val stage = Stage(viewport, batch)
 
+    private val dishNameField: TextField
     private val table: IngredientTable
     private val buttonTable: Table
 
     init {
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
+        dishNameField = UIFactory.textField(skin, Texts.dish)
+        dishNameField.alignment = Align.center
+        stage.addActor(dishNameField)
         table = IngredientTable(skin)
         stage.addActor(table)
         buttonTable = buildButtonTable(skin)
@@ -90,7 +97,10 @@ class CalculatorScreen : Screen {
     }
 
     private fun resizeUI() {
-        table.setSize(viewport.worldWidth, viewport.worldHeight - Config.bottomPad)
+        dishNameField.width = viewport.worldWidth
+        dishNameField.height = Config.dishNameHeight
+        dishNameField.setPosition(0f, viewport.worldHeight - Config.dishNameHeight)
+        table.setSize(viewport.worldWidth, viewport.worldHeight - Config.bottomPad - Config.dishNameHeight)
         table.y = Config.bottomPad
         buttonTable.setSize(viewport.worldWidth - 2 * Config.edgePad,
                 Config.bottomPad - 2 * Config.edgePad)
@@ -102,7 +112,11 @@ class CalculatorScreen : Screen {
         val dialog = RunnableDialog(Texts.addIngredientTitle, skin)
         val ingredient = Ingredient()
         dialog.contentTable.add(EditIngredientTable(skin, ingredient))
-        dialog.button(Texts.addButton, Runnable { table.addIngredient(ingredient) })
+        dialog.button(Texts.addButton, Runnable {
+            table.addIngredient(ingredient)
+            IngredientStore.INGREDIENTS.add(ingredient)
+            IngredientStore.save()
+        })
         dialog.button(Texts.cancelButton)
         dialog.show(stage)
     }

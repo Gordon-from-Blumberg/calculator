@@ -18,11 +18,11 @@ class CalculateTable(skin: Skin, private val ingredient: Ingredient) : Table(ski
         columnDefaults(1).left()
 
         add(Texts.pfcPer100)
-        add(ingredient.pfcPer100())
+        add(ingredient.pfcPer100)
 
         row()
         add(Texts.kcalPer100)
-        add(ingredient.kcalsPer100Rounded())
+        add(ingredient.kcalsPer100Rounded)
 
         row().padTop(15f)
         add(Texts.pfc)

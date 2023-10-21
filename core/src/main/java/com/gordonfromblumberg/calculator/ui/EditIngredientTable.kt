@@ -16,19 +16,19 @@ class EditIngredientTable(skin: Skin, private val ingredient: Ingredient) : Tabl
 
         row()
         add(Texts.proteinsCol)
-        add(UIFactory.floatField(skin, ingredient.proteinsPer100Rounded()) { ingredient.proteinsPer100 = it })
+        add(UIFactory.floatField(skin, ingredient.proteinsPer100Rounded) { ingredient.proteinsPer100 = it })
 
         row()
         add(Texts.fatsCol)
-        add(UIFactory.floatField(skin, ingredient.fatsPer100Rounded()) { ingredient.fatsPer100 = it })
+        add(UIFactory.floatField(skin, ingredient.fatsPer100Rounded) { ingredient.fatsPer100 = it })
 
         row()
         add(Texts.carbohydratesCol)
-        add(UIFactory.floatField(skin, ingredient.chsPer100Rounded()) { ingredient.chsPer100 = it })
+        add(UIFactory.floatField(skin, ingredient.chsPer100Rounded) { ingredient.chsPer100 = it })
 
         row()
         add(Texts.kcalCol)
-        add(UIFactory.floatField(skin, ingredient.kcalsPer100Rounded()) { ingredient.kcalsPer100 = it })
+        add(UIFactory.floatField(skin, ingredient.kcalsPer100Rounded) { ingredient.kcalsPer100 = it })
 
         row()
         add(Texts.massCol)

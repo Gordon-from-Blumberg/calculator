@@ -16,12 +16,12 @@ class Ingredient(var name: String = "",
     fun chs(m: Float = mass) = chsPer100 * m / 100
     fun kcals(m: Float = mass) = kcalsPer100 * m / 100
 
-    fun proteinsPer100Rounded() = round(proteinsPer100)
-    fun fatsPer100Rounded() = round(fatsPer100)
-    fun chsPer100Rounded() = round(chsPer100)
-    fun kcalsPer100Rounded() = round(kcalsPer100)
+    val proteinsPer100Rounded get() = round(proteinsPer100)
+    val fatsPer100Rounded get() = round(fatsPer100)
+    val chsPer100Rounded get() = round(chsPer100)
+    val kcalsPer100Rounded get() = round(kcalsPer100)
 
-    fun pfcPer100() = "${proteinsPer100Rounded()} / ${fatsPer100Rounded()} / ${chsPer100Rounded()}"
+    val pfcPer100 get() = "$proteinsPer100Rounded / $fatsPer100Rounded / $chsPer100Rounded"
     fun pfc(m: Float) = "${round(proteins(m))} / ${round(fats(m))} / ${round(chs(m))}"
     fun kcalsStr(m: Float) = round(kcals(m))
 

@@ -66,10 +66,10 @@ class IngredientTable(skin: Skin) : Table(skin) {
     private fun addIngredientRow(ingredient: Ingredient) {
         row()
         add(ingredient.name)
-        add(ingredient.proteinsPer100Rounded())
-        add(ingredient.fatsPer100Rounded())
-        add(ingredient.chsPer100Rounded())
-        add(ingredient.kcalsPer100Rounded())
+        add(ingredient.proteinsPer100Rounded)
+        add(ingredient.fatsPer100Rounded)
+        add(ingredient.chsPer100Rounded)
+        add(ingredient.kcalsPer100Rounded)
         add(ingredient.mass.toString())
     }
 

@@ -46,6 +46,13 @@ object UIFactory {
         }
     }
 
+    fun textField(skin: Skin, style: String, value: String = "", listener: ((value: String) -> Unit)? = null): TextField {
+        return TextField(value, skin, style).apply {
+            setTextFieldListener { f, _ -> listener?.invoke(f.text) }
+            addListener(focusListener)
+        }
+    }
+
     fun textButton(skin: Skin, text: String, handler: Runnable): TextButton {
         return TextButton(text, skin).apply {
             addListener(object: ClickListener(Input.Buttons.LEFT) {

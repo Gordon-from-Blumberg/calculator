@@ -50,6 +50,7 @@
 	},
 	"TextFieldStyle": {
 		"default": { "selection": "selection", "background": "textfield", "font": "default-font", "fontColor": "white", "cursor": "cursor" },
+		"backgroundless": { "selection": "selection", "font": "default-font", "fontColor": "white", "cursor": "cursor" },
 		"error": { "selection": "selection", "background": "textfield", "font": "default-font", "fontColor": "red", "cursor": "cursor" }
 	},
 	"CheckBoxStyle": {

@@ -30,7 +30,7 @@ class CalculatorScreen : Screen {
 
     init {
         val skin = CalculatorApp.ASSETS.get("ui/uiskin.json", Skin::class.java)
-        dishNameField = UIFactory.textField(skin, Texts.dish)
+        dishNameField = UIFactory.textField(skin, "backgroundless", Texts.dish)
         dishNameField.alignment = Align.center
         stage.addActor(dishNameField)
         table = IngredientTable(skin)

@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx
 import com.gordonfromblumberg.calculator.model.Ingredient
 import java.io.DataInputStream
 import java.io.DataOutputStream
+import java.util.TreeMap
 
 object IngredientStore {
     private const val fileName = "ingredients.data"
 
-    val INGREDIENTS = mutableListOf<Ingredient>()
+    private val INGREDIENTS = TreeMap<String, Ingredient>()
+
+    fun add(ingredient: Ingredient) {
+        INGREDIENTS[ingredient.name.lowercase()] = ingredient
+    }
 
     fun load() {
         INGREDIENTS.clear()
@@ -23,7 +28,7 @@ object IngredientStore {
             while (count-- > 0) {
                 val ingredient = Ingredient()
                 ingredient.load(it)
-                INGREDIENTS.add(ingredient)
+                add(ingredient)
             }
         }
     }
@@ -32,7 +37,7 @@ object IngredientStore {
         val storeFile = Gdx.files.local(fileName)
         DataOutputStream(storeFile.write(false)).use {
             it.writeInt(INGREDIENTS.size)
-            INGREDIENTS.forEach { i -> i.save(it) }
+            INGREDIENTS.values.forEach { i -> i.save(it) }
         }
     }
 }

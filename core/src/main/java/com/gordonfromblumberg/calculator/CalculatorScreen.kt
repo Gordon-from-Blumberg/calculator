@@ -114,7 +114,7 @@ class CalculatorScreen : Screen {
         dialog.contentTable.add(EditIngredientTable(skin, ingredient))
         dialog.button(Texts.addButton, Runnable {
             table.addIngredient(ingredient)
-            IngredientStore.INGREDIENTS.add(ingredient)
+            IngredientStore.add(ingredient)
             IngredientStore.save()
         })
         dialog.button(Texts.cancelButton)

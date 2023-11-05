@@ -2,6 +2,7 @@ package com.gordonfromblumberg.calculator
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -33,9 +34,14 @@ class CalculatorScreen : Screen {
         dishNameField = UIFactory.textField(skin, "backgroundless", Texts.dish)
         dishNameField.alignment = Align.center
         stage.addActor(dishNameField)
-        table = IngredientTable(skin)
+        table = IngredientTable(skin, Color(0f, 0.4f, 0.3f, 1f))
         stage.addActor(table)
         buttonTable = buildButtonTable(skin)
+//        val color = Color(0f, 0.3f, 0.4f, 1f)
+//        val scrollableTable = ScrollableTable(skin, color)
+//        scrollableTable.height = 500f
+//        stage.addActor(scrollableTable)
+        buildTable()
     }
 
     override fun show() {
@@ -75,9 +81,11 @@ class CalculatorScreen : Screen {
     private fun buildTable() {
         TableScheme.validate()
 
-        table.addIngredient(Ingredient("Chicken", 15f, 12f, 3f, 200f, 800f))
-        table.addIngredient(Ingredient("Sugar", 0f, 1f, 60f, 20f, 20f))
-        table.addIngredient(Ingredient("Oil", 0f, 80f, 10f, 500f, 50f))
+        for (i in 1..10) {
+            table.addIngredient(Ingredient("Chicken", 15f, 12f, 3f, 200f, 800f))
+            table.addIngredient(Ingredient("Sugar", 0f, 1f, 60f, 20f, 20f))
+            table.addIngredient(Ingredient("Oil", 0f, 80f, 10f, 500f, 50f))
+        }
     }
 
     private fun buildButtonTable(skin: Skin): Table {
@@ -100,8 +108,11 @@ class CalculatorScreen : Screen {
         dishNameField.width = viewport.worldWidth
         dishNameField.height = Config.dishNameHeight
         dishNameField.setPosition(0f, viewport.worldHeight - Config.dishNameHeight)
+
         table.setSize(viewport.worldWidth, viewport.worldHeight - Config.bottomPad - Config.dishNameHeight)
         table.y = Config.bottomPad
+        table.layout()
+
         buttonTable.setSize(viewport.worldWidth - 2 * Config.edgePad,
                 Config.bottomPad - 2 * Config.edgePad)
         buttonTable.setPosition(Config.edgePad, Config.edgePad)

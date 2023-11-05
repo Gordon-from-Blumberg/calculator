@@ -2,6 +2,8 @@ package com.gordonfromblumberg.calculator.ui
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
@@ -60,6 +62,15 @@ object UIFactory {
                     handler.run()
                 }
             })
+        }
+    }
+
+    fun colorDrawable(color: Color): PixmapDrawable {
+        val size = 2
+        return Pixmap(size, size, Pixmap.Format.RGB888).run {
+            setColor(color)
+            fill()
+            PixmapDrawable(this).also { this.dispose() }
         }
     }
 

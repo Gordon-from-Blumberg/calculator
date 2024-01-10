@@ -1,11 +1,9 @@
 package com.gordonfromblumberg.calculator.ui
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Array
@@ -13,8 +11,8 @@ import com.gordonfromblumberg.calculator.Config
 import com.gordonfromblumberg.calculator.Texts
 import com.gordonfromblumberg.calculator.model.Ingredient
 
-class IngredientTable(skin: Skin, headerBackgroundColor: Color) :
-        ScrollableTable(Table(skin), headerBackgroundColor) {
+class IngredientTable(skin: Skin) :
+        HeaderedTable(skin, HEADERS) {
 
     private val ingredients = Array<Ingredient>()
     val total = Ingredient(Texts.total)
@@ -22,12 +20,22 @@ class IngredientTable(skin: Skin, headerBackgroundColor: Color) :
     companion object {
         const val EDIT = "EDIT"
         const val REMOVE = "REMOVE"
+
+        val HEADERS = Array<HeaderDef>()
+
+        init {
+            HEADERS.add(HeaderDef(Texts.nameCol, true))
+            HEADERS.add(HeaderDef(Texts.proteinsCol))
+            HEADERS.add(HeaderDef(Texts.fatsCol))
+            HEADERS.add(HeaderDef(Texts.carbohydratesCol))
+            HEADERS.add(HeaderDef(Texts.kcalCol))
+            HEADERS.add(HeaderDef(Texts.massCol))
+        }
     }
 
     init {
-        table.top().pad(Config.edgePad)
-        table.defaults().space(Config.cellSpace)
-        buildHeader()
+        top().pad(Config.edgePad)
+        defaults().space(Config.cellSpace)
         addListener(ClickHandler())
     }
 
@@ -42,42 +50,32 @@ class IngredientTable(skin: Skin, headerBackgroundColor: Color) :
     }
 
     private fun rebuild() {
-        table.clearChildren()
+        clearChildren()
         total.reset()
 
-        buildHeader()
+        buildHeaderRow()
         for (ing in ingredients) {
             addIngredientRow(ing)
-            table.add(rowButton(Texts.edit, ing, EDIT)).minWidth(25f)
-            table.add(rowButton(Texts.remove, ing, REMOVE)).minWidth(25f)
+            add(rowButton(Texts.edit, ing, EDIT)).minWidth(25f)
+            add(rowButton(Texts.remove, ing, REMOVE)).minWidth(25f)
             total.add(ing)
         }
 
         addIngredientRow(total)
     }
 
-    private fun buildHeader() {
-        table.row().top()
-        table.add(Texts.nameCol).expandX()
-        table.add(Texts.proteinsCol)
-        table.add(Texts.fatsCol)
-        table.add(Texts.carbohydratesCol)
-        table.add(Texts.kcalCol)
-        table.add(Texts.massCol)
-    }
-
     private fun addIngredientRow(ingredient: Ingredient) {
-        table.row()
-        table.add(ingredient.name)
-        table.add(ingredient.proteinsPer100Rounded)
-        table.add(ingredient.fatsPer100Rounded)
-        table.add(ingredient.chsPer100Rounded)
-        table.add(ingredient.kcalsPer100Rounded)
-        table.add(ingredient.mass.toString())
+        row()
+        add(ingredient.name)
+        add(ingredient.proteinsPer100Rounded)
+        add(ingredient.fatsPer100Rounded)
+        add(ingredient.chsPer100Rounded)
+        add(ingredient.kcalsPer100Rounded)
+        add(ingredient.mass.toString())
     }
 
     private fun rowButton(text: String, ingredient: Ingredient, name: String): TextButton {
-        val button = TextButton(text, table.skin)
+        val button = TextButton(text, skin)
         button.name = name
         button.userObject = ingredient
         return button

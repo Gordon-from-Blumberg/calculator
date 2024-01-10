@@ -67,7 +67,7 @@ object UIFactory {
 
     fun colorDrawable(color: Color): PixmapDrawable {
         val size = 2
-        return Pixmap(size, size, Pixmap.Format.RGB888).run {
+        return Pixmap(size, size, Pixmap.Format.RGBA8888).run {
             setColor(color)
             fill()
             PixmapDrawable(this).also { this.dispose() }

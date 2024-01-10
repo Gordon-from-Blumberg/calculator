@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.gordonfromblumberg.calculator.model.Ingredient
@@ -34,7 +35,7 @@ class CalculatorScreen : Screen {
         dishNameField = UIFactory.textField(skin, "backgroundless", Texts.dish)
         dishNameField.alignment = Align.center
         stage.addActor(dishNameField)
-        table = IngredientTable(skin, Color(0f, 0.4f, 0.3f, 1f))
+        table = IngredientTable(skin, Color(0f, 0.4f, 0.3f, 0.9f))
         stage.addActor(table)
         buttonTable = buildButtonTable(skin)
 //        val color = Color(0f, 0.3f, 0.4f, 1f)
